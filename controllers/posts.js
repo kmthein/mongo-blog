@@ -13,7 +13,7 @@ exports.createPost = (req, res) => {
     .catch((err) => {
       console.log(err);
     });
-};
+}; 
 
 exports.renderCreatePage = (req, res) => {
   // res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));

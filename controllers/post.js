@@ -7,7 +7,6 @@ exports.createPost = (req, res) => {
 
   Post.create({ title, description, imgUrl: photo, userId: req.user })
     .then((result) => {
-      console.log(result);
       res.redirect("/");
     })
     .catch((err) => {
@@ -28,7 +27,6 @@ exports.renderHomePage = (req, res) => {
     .populate("userId", "username")
     .sort({ title: 1 })
     .then((posts) => {
-      console.log(posts);
       res.render("home", {
         title: "Homepage",
         postsArr: posts,

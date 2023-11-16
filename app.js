@@ -48,20 +48,4 @@ mongoose
   .then((result) => {
     app.listen(8080);
     console.log("Connected to database.");
-    return User.findOne().then((user) => {
-      if (!user) {
-        User.create({
-          username: "kmthein",
-          email: "kmthein@gmail.com",
-          password: "123123",
-        });
-      }
-      return user;
-    });
-  })
-  .then((result) => {
-    console.log(result);
-  })
-  .catch((err) => {
-    console.log(err);
   });

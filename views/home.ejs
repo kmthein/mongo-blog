@@ -13,7 +13,8 @@
     </form>
     </div>
     <% } else { %>
-    <a href="/login">Create account</a>
+    <a href="/login">Login existing account</a>
+    <a href="/register">Create new account</a>
     <% } %>
     <hr />
     <h1 class="title">Posts</h1>
@@ -27,7 +28,6 @@
     <div class="post-box">
       <div>
         <p class="post-title"><%= post.title %></p>
-        <p>Posted by @<%= post.userId.username %></p>
       </div>
       <a class="btn" href="/post/<%= post._id %>">See More...</a>
     </div>

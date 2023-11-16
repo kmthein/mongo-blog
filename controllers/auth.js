@@ -3,6 +3,7 @@ exports.renderLoginPage = (req, res) => {
 }
 
 exports.postLoginData = (req, res) => {
-    res.setHeader("Set-Cookie", "isLogin=true");
+    // res.setHeader("Set-Cookie", "isLogin=true");
+    req.session.isLogin = true;
     res.redirect("/");
 }

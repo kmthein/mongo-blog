@@ -1,12 +1,15 @@
 const express = require("express");
 const path = require("path");
 const bodyParser = require("body-parser");
-
 const mongoose = require("mongoose");
-
 const dotenv = require("dotenv").config();
+const session = require("express-session");
+const mongoStore = require("connect-mongodb-session")(session); 
 
-const User = require("./models/user");
+const store = new mongoStore({
+  uri: process.env.MONGODB_URI,
+  collection: "session",
+})
 
 const app = express();
 
@@ -17,6 +20,8 @@ const postRoutes = require("./routes/post");
 const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
 
+const User = require("./models/user");
+
 app.use(express.static(path.join(__dirname, "public")));
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -26,6 +31,13 @@ app.use((req, res, next) => {
     next();
   });
 });
+
+app.use(session({
+  secret: process.env.SESSION_KEY,
+  unsave: false,
+  saveUninitialized: false,
+  store
+}))
 
 app.use("/admin", adminRoutes);
 app.use(postRoutes);

@@ -28,6 +28,7 @@
     <div class="post-box">
       <div>
         <p class="post-title"><%= post.title %></p>
+        <p>Posted by @<%= post.userId.username %></p>
       </div>
       <a class="btn" href="/post/<%= post._id %>">See More...</a>
     </div>

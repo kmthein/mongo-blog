@@ -4,8 +4,9 @@ const Post = require("../models/post");
 
 exports.createPost = (req, res) => {
   const { title, description, photo } = req.body;
+  // const userId = req.session.userInfo._id;
 
-  Post.create({ title, description, imgUrl: photo, userId: req.user })
+  Post.create({ title, description, imgUrl: photo, userId: req.user._id })
     .then((result) => {
       res.redirect("/");
     })
@@ -16,14 +17,16 @@ exports.createPost = (req, res) => {
 
 exports.renderCreatePage = (req, res) => {
   // res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));
+
   res.render("addPost", { title: "Post create ml" });
 };
 
 exports.renderHomePage = (req, res) => {
   // res.sendFile(path.join(__dirname, "..", "views", "homepage.html"));
   // const cookie = req.get("Cookie").split("=")[1].trim() === "true";
+
   Post.find()
-    .select("title")
+    // .select("title")
     .populate("userId", "username")
     .sort({ title: 1 })
     .then((posts) => {

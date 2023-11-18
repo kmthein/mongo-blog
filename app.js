@@ -5,6 +5,8 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv").config();
 const session = require("express-session");
 const mongoStore = require("connect-mongodb-session")(session); 
+const { isLogin } = require("./middleware/is-login");
+const csrf = require("csurf");
 
 const store = new mongoStore({
   uri: process.env.MONGODB_URI,
@@ -42,7 +44,17 @@ app.use((req, res, next) => {
   });
 });
 
-app.use("/admin", adminRoutes);
+const csrfProtect = csrf();
+
+app.use(csrfProtect);
+
+app.use((req, res, next) => {
+  res.locals.isLogin = req.session.isLogin ? true : false;
+  res.locals.csrfToken = req.csrfToken();
+  next();
+})
+
+app.use("/admin", isLogin, adminRoutes);
 app.use(postRoutes);
 app.use(authRoutes);
 

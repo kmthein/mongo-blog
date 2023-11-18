@@ -34,6 +34,7 @@ exports.renderHomePage = (req, res) => {
         title: "Homepage",
         postsArr: posts,
         isLogin: req.session.isLogin ? true : false,
+        csrfToken: req.csrfToken()
       });
     })
     .catch((err) => {

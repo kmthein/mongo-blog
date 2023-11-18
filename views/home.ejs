@@ -9,6 +9,7 @@
     <a href="/admin/create-post">Add a new post</a>
     <div style="width: 6%;">
     <form action="/logout" method="post">
+      <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>Logout</button>
     </form>
     </div>

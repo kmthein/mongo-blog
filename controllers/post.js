@@ -24,7 +24,12 @@ exports.renderCreatePage = (req, res) => {
 exports.renderHomePage = (req, res) => {
   // res.sendFile(path.join(__dirname, "..", "views", "homepage.html"));
   // const cookie = req.get("Cookie").split("=")[1].trim() === "true";
-
+  let loginSuccessMsg = req.flash("loginSuccess");
+  if(loginSuccessMsg.length > 0) {
+    loginSuccessMsg = loginSuccessMsg[0];
+  } else {
+    loginSuccessMsg = null;
+  }
   Post.find()
     // .select("title")
     .populate("userId", "username")
@@ -34,6 +39,7 @@ exports.renderHomePage = (req, res) => {
         title: "Homepage",
         postsArr: posts,
         isLogin: req.session.isLogin ? true : false,
+        loginSuccessMsg,
         csrfToken: req.csrfToken()
       });
     })

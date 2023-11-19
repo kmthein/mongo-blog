@@ -22,7 +22,8 @@ label {
 input,
 textarea {
   font-size: 18px;
-  padding: 4px 10px;
+  padding: 4px 0;
+  padding-left: 8px;
   width: 100%;
 }
 button {
@@ -68,4 +69,18 @@ button {
   padding: 8px 0;
   width: 100%;
   text-align: center;
+}
+.message-box {
+  background: rgb(194, 133, 133);
+  color: rgb(128, 14, 14);
+  text-align: center;
+  padding: 15px 10px;
+  font-weight: bold;
+}
+.success-box {
+  background: rgb(9, 35, 150);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 15px 10px;
+  font-weight: bold;
 }

@@ -6,6 +6,9 @@
       <form action="/register" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
         <div>
+          <% if(regError) { %>
+            <p class="message-box"><%= regError %></p>
+          <% } %>
           <label for="username">Enter username</label>
           <input type="text" id="username" name="username" required />
         </div>

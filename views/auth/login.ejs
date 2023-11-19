@@ -6,6 +6,12 @@
       <form action="/login" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
         <div>
+          <% if(errorMsg) { %>
+            <p class="message-box"><%= errorMsg %></p>
+          <% } %>
+          <% if(regSuccessMsg) { %>
+            <p class="success-box"><%= regSuccessMsg %></p>
+          <% } %>
           <label for="email">Enter email</label>
           <input type="email" id="email" name="email" required />
         </div>

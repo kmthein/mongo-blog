@@ -18,6 +18,9 @@
     <a href="/register">Create new account</a>
     <% } %>
     <hr />
+    <% if(loginSuccessMsg) { %>
+      <p class="success-box"><%= loginSuccessMsg %></p>
+    <% } %>
     <h1 class="title">Posts</h1>
     <% if(postsArr.length === 0) { %>
     <div>

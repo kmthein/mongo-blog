@@ -1,7 +1,6 @@
 <%- include("./includes/head") %>
-
-    <section class="mx-auto">
-      <a href="/">Go back home</a>
+<%- include("./includes/navbar") %>
+    <section class="mx-auto mt-20 form">
       <h1 class="title">Add a new post here!</h1>
       <form action="/admin" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />

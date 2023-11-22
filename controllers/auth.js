@@ -55,6 +55,7 @@ exports.postLoginData = (req, res) => {
             res.redirect("/");
           });
         } else {
+          req.flash("error", "Wrong email or password try again!");
           res.redirect("/login");
         }
         res.redirect("/");

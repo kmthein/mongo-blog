@@ -1,40 +1,55 @@
 <%- include("./includes/head") %>
-    <h1 class="title">HomePage</h1>
-    <p>
-      Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad dignissimos
-      veniam pariatur autem. Maxime velit eos sint. Tempore quam cumque optio
-      laborum dolore commodi cum dolorem deleniti soluta, ea nemo.
-    </p>
+<div class="flex navbar space-between p-50">
+  <div>
+    <h1 class="title text-white">My Blogs</h1>
+  </div>
     <% if(isLogin) { %>
+  <div class="flex gap-15">
+    <p class="text-white">Hello, <%= currentUser %></p>
+    <div>
     <a href="/admin/create-post">Add a new post</a>
-    <div style="width: 6%;">
+  </div>
+    <div>
     <form action="/logout" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
       <button>Logout</button>
     </form>
     </div>
+  </div>
     <% } else { %>
+  <div>
     <a href="/login">Login existing account</a>
     <a href="/register">Create new account</a>
     <% } %>
+  </div>
+</div>
     <hr />
     <% if(loginSuccessMsg) { %>
       <p class="success-box"><%= loginSuccessMsg %></p>
     <% } %>
-    <h1 class="title">Posts</h1>
-    <% if(postsArr.length === 0) { %>
+    <% if(postsArr.length === 0 && isLogin) { %>
     <div>
       <h4>Nothing to see ?</h4>
       <p>Create a new post now !!!</p>
       <a href="/admin/create-post">Create a new post</a>
     </div>
-    <% } %> <% for(let post of postsArr) { %>
+    <% } %> 
+    <% if(postsArr.length === 0 && !isLogin) { %>
+    <div>
+      <h4>Login to create new post</h4>
+      <p>There is no recent post here.</p>
+    </div>
+    <% } %>
+    <div class="post-container">
+    <% for(let post of postsArr) { %>
     <div class="post-box">
       <div>
+      <img src="<%= post.imgUrl %>" alt="<%= post.title %>" class="home-img">
         <p class="post-title"><%= post.title %></p>
         <p>Posted by @<%= post.userId.username %></p>
       </div>
       <a class="btn" href="/post/<%= post._id %>">See More...</a>
     </div>
     <% } %>
+  </div>
     <%- include("./includes/foot") %>

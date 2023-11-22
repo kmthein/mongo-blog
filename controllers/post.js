@@ -18,7 +18,7 @@ exports.createPost = (req, res) => {
 exports.renderCreatePage = (req, res) => {
   // res.sendFile(path.join(__dirname, "..", "views", "addPost.html"));
 
-  res.render("addPost", { title: "Post create ml" });
+  res.render("addPost", { title: "Add New Post" });
 };
 
 exports.renderHomePage = (req, res) => {
@@ -40,6 +40,7 @@ exports.renderHomePage = (req, res) => {
         postsArr: posts,
         isLogin: req.session.isLogin ? true : false,
         loginSuccessMsg,
+        currentUser: req.session.userInfo ? req.session.userInfo.email : "",
         csrfToken: req.csrfToken()
       });
     })
@@ -63,7 +64,7 @@ exports.getPost = (req, res) => {
   const postId = req.params.postId;
   Post.findById(postId)
     .then((post) => {
-      res.render("details", { title: "Post Details Page", post });
+      res.render("details", { title: "Post Details", post, currentLoginUserId: req.session.userInfo ? req.session.userInfo._id : "" });
     })
     .catch((err) => {
       console.log(err);
@@ -75,6 +76,9 @@ exports.editPost = (req, res) => {
 
   Post.findById(postId)
     .then((post) => {
+      if(post.userId.toString() != req.user._id.toString()) {
+        return res.redirect("/");
+      }
       post.title = title;
       post.description = description;
       post.imgUrl = photo;
@@ -91,7 +95,7 @@ exports.editPost = (req, res) => {
 exports.deletePost = (req, res) => {
   const { postId } = req.params;
 
-  Post.findByIdAndDelete(postId)
+  Post.deleteOne({_id: postId, userId: req.user._id})
     .then(() => {
       console.log("Post Deleted");
       res.redirect("/");

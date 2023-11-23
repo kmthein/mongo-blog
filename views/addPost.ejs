@@ -5,12 +5,15 @@
       <form action="/admin" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
         <div>
+          <% if(errorMsg) { %>
+            <p class="message-box"><%= errorMsg %></p>
+          <% } %>
           <label for="title">Enter title</label>
-          <input type="text" id="title" name="title" required />
+          <input type="text" id="title" name="title" value="<%= oldFormData.title %>" />
         </div>
         <div>
           <label for="photo">Enter photo</label>
-          <input type="text" id="photo" name="photo" required />
+          <input type="text" id="photo" name="photo" value="<%= oldFormData.photo %>" />
         </div>
         <div>
           <label for="description">Enter description</label>
@@ -19,7 +22,7 @@
             id="description"
             cols="30"
             rows="10"
-          ></textarea>
+          ><%= oldFormData.description %></textarea>
         </div>
         <button>Add Post</button>
       </form>

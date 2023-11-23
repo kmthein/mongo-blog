@@ -140,3 +140,8 @@ button {
   font-weight: bold;
   margin-top: 20px;
 }
+.tmp {
+  color: #000000;
+  font-weight: 300;
+  margin-left: 5px;
+}

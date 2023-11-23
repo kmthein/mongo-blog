@@ -1,7 +1,7 @@
 <%- include("./includes/head") %>
 <%- include("./includes/navbar") %>
 <div class="p-50">
-  <% if(post.userId.toString() == currentLoginUserId.toString()) { %>
+  <% if(post.userId._id.toString() == currentLoginUserId.toString()) { %>
     <div class="flex f-end gap-15">
       <div>
         <a href="/admin/edit/<%= post._id %>" class="btn-full">Edit</a>
@@ -15,6 +15,12 @@
     </div>
     <% } %>
 <section class="details">
+  <div class="mt-20">
+    <p >Posted by <span class="tmp"><%= post.userId.email %></span></p>
+    <% if(date) { %>
+      <p>Uploaded at <span class="tmp"><%= date %></span></p>
+    <% } %>
+  </div>
     <h1><%= post.title %></h1>
     <img src="<%= post.imgUrl %>" alt="<%= post.title %>">
     <p><%= post.description %></p>

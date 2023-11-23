@@ -1,28 +1,31 @@
 <%- include("./includes/head") %>
 <%- include("./includes/navbar") %>
     <section class="mx-auto">
-      <h1 class="title">Edit post now!</h1>
+      <h1 class="title mt-20">Edit post now!</h1>
       <form action="/admin/edit-post" method="post">
         <input hidden value="<%= csrfToken %>" name="_csrf" />
         <input type="text" value="<%= post._id %>" name="postId" hidden>
-        <div>
+        <div class="mt-20">
+          <% if(errorMsg) { %>
+            <p class="message-box"><%= errorMsg %></p>
+          <% } %>
           <label for="title">Enter title</label>
-          <input type="text" id="title" name="title" value="<%= post.title %>" required />
+          <input type="text" id="title" name="title" value="<%= isValidationFail ? oldFormData.title : post.title %>" required />
         </div>
-        <div>
+        <div class="mt-20">
           <label for="photo">Enter photo</label>
-          <input type="text" id="photo" name="photo" value="<%= post.imgUrl %>" required />
+          <input type="text" id="photo" name="photo" value="<%= isValidationFail ? oldFormData.photo : post.imgUrl %>" required />
         </div>
-        <div>
+        <div class="mt-20">
           <label for="description">Enter description</label>
           <textarea
             name="description"
             id="description"
             cols="30"
             rows="10"
-          ><%= post.description %></textarea>
+          ><%= isValidationFail ? oldFormData.description : post.description %></textarea>
         </div>
-        <button>Update Now</button>
+        <button class="mt-20">Update Now</button>
       </form>
     </section>
   </body>

@@ -1,7 +1,7 @@
 <%- include("./includes/head") %>
 <div class="flex navbar space-between p-50">
   <div>
-    <h1 class="title text-white">My Blogs</h1>
+    <h1 class="title text-white"><a href="/" class="bg-none">My Blogs</a></h1>
   </div>
     <% if(isLogin) { %>
   <div class="flex gap-15">
@@ -17,7 +17,7 @@
     </div>
   </div>
     <% } else { %>
-  <div>
+  <div class="flex gap-15">
     <a href="/login">Login existing account</a>
     <a href="/register">Create new account</a>
     <% } %>
@@ -25,7 +25,9 @@
 </div>
     <hr />
     <% if(loginSuccessMsg) { %>
+      <div class="success-box-container">
       <p class="success-box"><%= loginSuccessMsg %></p>
+      </div>
     <% } %>
     <% if(postsArr.length === 0 && isLogin) { %>
     <div>

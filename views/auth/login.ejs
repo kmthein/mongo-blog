@@ -1,7 +1,7 @@
 <%- include("../includes/head") %>
-
+<%- include("../includes/navbar") %>
     <section class="mx-auto">
-      <a href="/">Go back home</a>
+      <a href="/" class="ml-auto">Go back home</a>
       <h1 class="title">Login your account!</h1>
       <form action="/login" method="post">
       <input hidden value="<%= csrfToken %>" name="_csrf" />
@@ -9,15 +9,12 @@
           <% if(errorMsg) { %>
             <p class="message-box"><%= errorMsg %></p>
           <% } %>
-          <% if(regSuccessMsg) { %>
-            <p class="success-box"><%= regSuccessMsg %></p>
-          <% } %>
           <label for="email">Enter email</label>
-          <input type="email" id="email" name="email" required />
+          <input type="text" id="email" name="email" value="<%= oldFormData.email %>" />
         </div>
         <div>
             <label for="password">Enter password</label>
-            <input type="password" id="password" name="password" required />
+            <input type="password" id="password" name="password" value="<%= oldFormData.password %>" />
         </div>
         <a href="/reset-password">Forgot Password</a>
         <button>Login</button>

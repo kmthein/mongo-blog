@@ -1,6 +1,6 @@
 <div class="flex navbar space-between p-50">
     <div>
-      <h1 class="text-white">My Blogs</h1>
+      <h1 class="text-white"><a href="/" class="bg-none">My Blogs</a></h1>
     </div>
       <% if(isLogin) { %>
     <div class="flex navbar-btn">
@@ -9,7 +9,7 @@
       </div>
     </div>
       <% } else { %>
-    <div>
+    <div class="flex gap-15">
       <a href="/login">Login existing account</a>
       <a href="/register">Create new account</a>
       <% } %>

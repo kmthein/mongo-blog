@@ -76,7 +76,7 @@ button {
 .btn-full {
   margin: 10px 0;
   color: #fff;
-  background-color: #000;
+  background-color: #000000;
   padding: 8px 0;
   width: 60px;
   text-align: center;
@@ -84,13 +84,6 @@ button {
 .message-box {
   background: rgb(194, 133, 133);
   color: rgb(128, 14, 14);
-  text-align: center;
-  padding: 15px 10px;
-  font-weight: bold;
-}
-.success-box {
-  background: rgb(9, 35, 150);
-  color: rgb(255, 255, 255);
   text-align: center;
   padding: 15px 10px;
   font-weight: bold;
@@ -130,4 +123,20 @@ button {
 }
 .form div {
   margin: 20px 0;
+}
+.bg-none {
+  background: none;
+}
+.success-box-container {
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
+}
+.success-box {
+  background: rgb(9, 35, 150);
+  color: rgb(255, 255, 255);
+  text-align: center;
+  padding: 15px 10px;
+  font-weight: bold;
+  margin-top: 20px;
 }

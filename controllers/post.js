@@ -75,7 +75,7 @@ exports.getEditPost = (req, res) => {
     });
 };
 
-exports.getPost = (req, res) => {
+exports.getPost = (req, res, next) => {
   const postId = req.params.postId;
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
@@ -98,6 +98,8 @@ exports.getPost = (req, res) => {
     })
     .catch((err) => {
       console.log(err);
+      const error = new Error("Something went wrong.");
+      return next(error);
     });
 };
 

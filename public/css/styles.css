@@ -46,15 +46,17 @@ button {
 }
 .post-container {
   display: flex;
-  margin: 0 50px;
-  gap: 50px;
-  margin-top: 40px;
+  flex-wrap: wrap;
+  margin: 0 100px;
+  justify-content: space-between;
+  margin-top: 10px;
 }
 .post-box {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 10px 20px;
   border-radius: 10px;
   margin-bottom: 20px;
+  margin-top: 20px;
 }
 .post-title {
   font-size: 20px;
@@ -144,4 +146,20 @@ button {
   color: #000000;
   font-weight: 300;
   margin-left: 5px;
+}
+.center {
+  justify-content: center;
+}
+.fullheight {
+  height: 80vh;
+}
+.mx-auto {
+  margin: 0 auto;
+}
+.go-home {
+  text-align: center;
+  margin-top: 10px;
+}
+.f-20 {
+  font-size: 20px;
 }

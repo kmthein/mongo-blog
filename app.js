@@ -23,6 +23,8 @@ const postRoutes = require("./routes/post");
 const adminRoutes = require("./routes/admin");
 const authRoutes = require("./routes/auth");
 
+const errorController = require("./controllers/error");
+
 const User = require("./models/user");
 
 app.use(express.static(path.join(__dirname, "public")));
@@ -60,6 +62,10 @@ app.use((req, res, next) => {
 app.use("/admin", isLogin, adminRoutes);
 app.use(postRoutes);
 app.use(authRoutes);
+
+app.all("*", errorController.get404page);
+
+app.use(errorController.get500page);
 
 mongoose
   .connect(process.env.MONGODB_URL)

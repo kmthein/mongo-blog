@@ -4,7 +4,7 @@
   <% if(post.userId._id.toString() == currentLoginUserId.toString()) { %>
     <div class="flex f-end gap-15">
       <div>
-        <a href="/admin/edit/<%= post._id %>" class="btn-full">Edit</a>
+        <a href="/admin/edit/<%= post._id %>">Edit</a>
       </div>
     <div>
       <form action="/admin/delete-post/<%= post._id %>" method="post">
@@ -22,8 +22,8 @@
     <% } %>
   </div>
     <h1><%= post.title %></h1>
-    <img src="<%= post.imgUrl %>" alt="<%= post.title %>">
-    <p><%= post.description %></p>
+    <img src="<%= '/' + post.imgUrl %>" alt="<%= post.title %>">
+    <p class="mt-20"><%= post.description %></p>
     
 </section>
 </div>

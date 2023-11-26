@@ -2,7 +2,7 @@
 <%- include("./includes/navbar") %>
     <section class="mx-auto">
       <h1 class="title mt-20">Edit post now!</h1>
-      <form action="/admin/edit-post" method="post">
+      <form action="/admin/edit-post" method="post" enctype="multipart/form-data">
         <input hidden value="<%= csrfToken %>" name="_csrf" />
         <input type="text" value="<%= post._id %>" name="postId" hidden>
         <div class="mt-20">
@@ -14,7 +14,7 @@
         </div>
         <div class="mt-20">
           <label for="photo">Enter photo</label>
-          <input type="text" id="photo" name="photo" value="<%= isValidationFail ? oldFormData.photo : post.imgUrl %>" required />
+          <input type="file" id="photo" name="photo" />
         </div>
         <div class="mt-20">
           <label for="description">Enter description</label>

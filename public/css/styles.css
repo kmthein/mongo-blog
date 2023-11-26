@@ -4,8 +4,6 @@
   padding: 0;
   font-family: 'Roboto', sans-serif;
 }
-.title {
-}
 .description {
   color: red;
   text-align: center;
@@ -14,7 +12,7 @@ a {
   display: block;
   margin: 10px 0;
   color: #fff;
-  background-color: #000;
+  background: rgb(28, 28, 88);
   padding: 8px 10px;
   width: fit-content;
   text-decoration: none;
@@ -34,11 +32,12 @@ textarea {
 button {
   margin: 10px 0;
   color: #fff;
-  background-color: #000;
+  background: rgb(28, 28, 88);
   padding: 8px 10px;
   width: 100%;
-  font-family: 'Roboto', sans-serif;
   cursor: pointer;
+  font-size: 16px;
+  border: 0;
 }
 .mx-auto {
   width: 40%;
@@ -48,8 +47,8 @@ button {
   display: flex;
   flex-wrap: wrap;
   margin: 0 100px;
-  justify-content: space-between;
   margin-top: 10px;
+  gap: 80px;
 }
 .post-box {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
@@ -98,7 +97,7 @@ button {
   justify-content: space-between;
 }
 .navbar {
-  background: rgb(17, 17, 105);
+  background: rgb(48, 48, 128);
 }
 .gap-15 {
   gap: 15px;
@@ -162,4 +161,15 @@ button {
 }
 .f-20 {
   font-size: 20px;
+}
+a:hover, button:hover {
+  background: rgb(62, 62, 110);
+  transition: 0.2s;
+}
+.logo a:hover {
+  background: none!important;
+  color: #c7c7c7;
+}
+.ml-20 {
+  margin-left: 35px;
 }

@@ -8,11 +8,30 @@ const mongoStore = require("connect-mongodb-session")(session);
 const { isLogin } = require("./middleware/is-login");
 const csrf = require("csurf");
 const flash = require("connect-flash");
+const multer = require("multer");
 
 const store = new mongoStore({
   uri: process.env.MONGODB_URI,
   collection: "session",
 })
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads");
+  },
+  filename: (req, file, cb) => {
+    const uniqueSuffix = Date.now() + '-' + Math.round(Math.random() * 1E9)
+    cb(null, uniqueSuffix + "_" + file.originalname);
+  }
+})
+
+const fileFilterConfigure = (req, file, cb) => {
+  if(file.mimetype === "image/png" || file.mimetype === "image/jpg" || file.mimetype === "image/jpeg") {
+    cb(null, true)
+  } else {
+    cb(null, false)
+  }
+} 
 
 const app = express();
 
@@ -28,6 +47,7 @@ const errorController = require("./controllers/error");
 const User = require("./models/user");
 
 app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use(session({
@@ -46,6 +66,8 @@ app.use((req, res, next) => {
     next();
   });
 });
+
+app.use(multer({ storage: storage, fileFilter: fileFilterConfigure }).single("photo"));
 
 const csrfProtect = csrf();
 

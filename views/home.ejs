@@ -2,7 +2,7 @@
 <div class="flex navbar space-between p-50">
   <div class="flex">
     <i class="fa-solid fa-blog text-white f-20"></i>
-    <h2 class="title text-white"><a href="/" class="bg-none">My Blogs</a></h2>
+    <h2 class="title text-white logo"><a href="/" class="bg-none">My Blogs</a></h2>
   </div>
     <% if(isLogin) { %>
   <div class="flex gap-15">
@@ -31,10 +31,11 @@
       </div>
     <% } %>
     <% if(postsArr.length === 0 && isLogin) { %>
-    <div>
-      <h4>Nothing to see ?</h4>
-      <p>Create a new post now !!!</p>
-      <a href="/admin/create-post">Create a new post</a>
+    <div class="flex center fullheight">
+      <div>
+        <h1>Nothing to see ?</h1>
+        <a href="/admin/create-post" class="ml-20 mt-20">Create a new post</a>
+      </div>
     </div>
     <% } %> 
     <% if(postsArr.length === 0 && !isLogin) { %>
@@ -47,7 +48,7 @@
     <% for(let post of postsArr) { %>
     <div class="post-box">
       <div>
-      <img src="<%= post.imgUrl %>" alt="<%= post.title %>" class="home-img">
+      <img src="<%= '/' + post.imgUrl %>" alt="<%= post.title %>" class="home-img">
         <p class="post-title"><%= post.title %></p>
         <p>Posted by @<%= post.userId.username %></p>
       </div>

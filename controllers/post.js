@@ -6,6 +6,13 @@ const { validationResult } = require("express-validator");
 
 const formatISO9075 = require("date-fns/formatISO9075");
 
+const fileDelete = require("../utils/file-delete");
+
+const path = require("path");
+
+const pdf = require("pdf-creator-node");
+const fs = require("fs");
+
 exports.createPost = (req, res) => {
   const { title, description, photo } = req.body;
   const image = req.file;
@@ -146,6 +153,7 @@ exports.editPost = (req, res) => {
       post.title = title;
       post.description = description;
       if (image) {
+        fileDelete(post.imgUrl);
         post.imgUrl = image.path;
       }
       return post.save().then((result) => {
@@ -160,7 +168,9 @@ exports.editPost = (req, res) => {
 
 exports.deletePost = (req, res) => {
   const { postId } = req.params;
-
+  Post.findById(postId).then((post) => {
+    fileDelete(post.imgUrl);
+  });
   Post.deleteOne({ _id: postId, userId: req.user._id })
     .then(() => {
       console.log("Post Deleted");
@@ -169,4 +179,57 @@ exports.deletePost = (req, res) => {
     .catch((err) => {
       console.log(err);
     });
+};
+
+exports.saveAsPDF = (req, res) => {
+  const { id } = req.params;
+  const templateUrl = `${path.join(__dirname, "../views/template/template.html")}`;
+  const html = fs.readFileSync(templateUrl, "utf8");
+  const options = {
+    format: "A3",
+    orientation: "portrait",
+    border: "10mm",
+    header: {
+      height: "45mm",
+      contents:
+        '<div style="text-align: center;">PDF download from My Blogs</div>',
+    },
+    footer: {
+      height: "28mm",
+      contents: {
+        first: "Cover page",
+      },
+    },
+  };
+  console.log("post");
+  Post.findById(id)
+    .populate("userId")
+    .lean()
+    .then((post) => {
+      const date = new Date();
+      const pdfPath = `${path.join(
+        __dirname,
+        "../public/pdf/" + date.getTime() + ".pdf"
+      )}`;
+      const document = {
+        html: html,
+        data: {
+          post,
+        },
+        path: pdfPath,
+        type: "",
+      };
+      pdf
+        .create(document, options)
+        .then((result) => {
+          console.log(result);
+          res.download(pdfPath, (err) => {
+            // if(err) throw err;
+            fileDelete(pdfPath);
+          });
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    })
 };

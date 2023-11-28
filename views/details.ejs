@@ -21,6 +21,7 @@
       <p>Uploaded at <span class="tmp"><%= date %></span></p>
     <% } %>
   </div>
+  <a href="/save/<%= post._id %>">Save to device</a>
     <h1><%= post.title %></h1>
     <img src="<%= '/' + post.imgUrl %>" alt="<%= post.title %>">
     <p class="mt-20"><%= post.description %></p>

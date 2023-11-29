@@ -51,28 +51,60 @@ exports.renderCreatePage = (req, res) => {
   });
 };
 
-exports.renderHomePage = (req, res) => {
+exports.renderHomePage = (req, res, next) => {
+  const pageNumber = +req.query.page || 1;
   // res.sendFile(path.join(__dirname, "..", "views", "homepage.html"));
   // const cookie = req.get("Cookie").split("=")[1].trim() === "true";
+  let totalPosts;
   let loginSuccessMsg = req.flash("loginSuccess");
   if (loginSuccessMsg.length > 0) {
     loginSuccessMsg = loginSuccessMsg[0];
   } else {
     loginSuccessMsg = null;
   }
+  const POST_PER_PAGE = 3;
   Post.find()
-    // .select("title")
-    .populate("userId", "username")
-    .sort({ title: 1 })
+    .countDocuments()
+    .then((total) => {
+      totalPosts = total;
+      if (total > 1) {
+        return Post.find()
+          .populate("userId", "username")
+          .skip((pageNumber - 1) * POST_PER_PAGE)
+          .limit(POST_PER_PAGE)
+          .sort({ createdAt: -1 });
+      } else {
+        res
+          .status(500)
+          .render("error/500", {
+            title: "Something went wrong.",
+            message: "No posts found in this page number.",
+          });
+      }
+    })
     .then((posts) => {
-      res.render("home", {
-        title: "Homepage",
-        postsArr: posts,
-        isLogin: req.session.isLogin ? true : false,
-        loginSuccessMsg,
-        currentUser: req.session.userInfo ? req.session.userInfo.email : "",
-        csrfToken: req.csrfToken(),
-      });
+      if(posts.length > 0) {
+        res.render("home", {
+          title: "Homepage",
+          postsArr: posts,
+          isLogin: req.session.isLogin ? true : false,
+          loginSuccessMsg,
+          currentUser: req.session.userInfo ? req.session.userInfo.email : "",
+          csrfToken: req.csrfToken(),
+          currentPage: pageNumber,
+          hasNextPage: POST_PER_PAGE * pageNumber < totalPosts,
+          hasPreviousPage: pageNumber > 1,
+          nextPage: pageNumber + 1,
+          previousPage: pageNumber - 1,
+        });  
+      } else {
+        res
+        .status(500)
+        .render("error/500", {
+          title: "Something went wrong.",
+          message: "No posts found in this page number.",
+        });
+      }
     })
     .catch((err) => {
       console.log(err);
@@ -183,10 +215,13 @@ exports.deletePost = (req, res) => {
 
 exports.saveAsPDF = (req, res) => {
   const { id } = req.params;
-  const templateUrl = `${path.join(__dirname, "../views/template/template.html")}`;
+  const templateUrl = `${path.join(
+    __dirname,
+    "../views/template/template.html"
+  )}`;
   const html = fs.readFileSync(templateUrl, "utf8");
   const options = {
-    format: "A3",
+    format: "A4",
     orientation: "portrait",
     border: "10mm",
     header: {
@@ -194,14 +229,7 @@ exports.saveAsPDF = (req, res) => {
       contents:
         '<div style="text-align: center;">PDF download from My Blogs</div>',
     },
-    footer: {
-      height: "28mm",
-      contents: {
-        first: "Cover page",
-      },
-    },
   };
-  console.log("post");
   Post.findById(id)
     .populate("userId")
     .lean()
@@ -231,5 +259,5 @@ exports.saveAsPDF = (req, res) => {
         .catch((error) => {
           console.error(error);
         });
-    })
+    });
 };

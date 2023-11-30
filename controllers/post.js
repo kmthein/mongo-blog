@@ -148,6 +148,9 @@ exports.getPost = (req, res, next) => {
       res.render("details", {
         title: "Post Details",
         post,
+        isLogin: req.session.isLogin ? true : false,
+        currentUser: req.session.userInfo ? req.session.userInfo.email : "",
+        csrfToken: req.csrfToken(),
         date: post.createdAt
           ? formatISO9075(post.createdAt, { representation: "date" })
           : undefined,

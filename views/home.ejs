@@ -1,8 +1,8 @@
 <%- include("./includes/head") %>
-<div class="flex navbar space-between p-50">
+<div class="flex navbar space-between p-300">
   <div class="flex">
     <i class="fa-solid fa-blog text-white f-20"></i>
-    <h2 class="title text-white logo"><a href="/" class="bg-none">My Blogs</a></h2>
+    <h1 class="title text-white logo"><a href="/" class="bg-none">My Blogs</a></h1>
   </div>
     <% if(isLogin) { %>
   <div class="flex gap-15">
@@ -44,16 +44,23 @@
       <p>There is no recent post here.</p>
     </div>
     <% } %>
+    <div class="pt-40 p-300">
+      <h2>Recent posts</h2>
+    </div>
     <div class="post-container">
-    <% for(let post of postsArr) { %>
+    <% for(let post of postsArr) { %>      
+    <a class="link" href="/post/<%= post._id %>">
     <div class="post-box">
       <div>
       <img src="<%= '/' + post.imgUrl %>" alt="<%= post.title %>" class="home-img">
-        <p class="post-title"><%= post.title %></p>
-        <p>Posted by @<%= post.userId.username %></p>
+      <div class="h-50px">
+        <p class="post-title mt-20"><%= post.title.substr(0, 40) %><%= post.title.length > 40 ? "..." : "" %></p>
+        <p class="my-20"><%= post.description.substr(0, 100) %>...</p>
       </div>
-      <a class="btn" href="/post/<%= post._id %>">See More...</a>
+        <p class="my-20">Posted by @<%= post.userId.username %></p>
+      </div>    
     </div>
+    </a>
     <% } %>
   </div>
   <div class="pagination">

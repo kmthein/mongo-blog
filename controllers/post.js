@@ -62,7 +62,7 @@ exports.renderHomePage = (req, res, next) => {
   } else {
     loginSuccessMsg = null;
   }
-  const POST_PER_PAGE = 3;
+  const POST_PER_PAGE = 6;
   Post.find()
     .countDocuments()
     .then((total) => {

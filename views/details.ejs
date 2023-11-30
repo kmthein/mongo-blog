@@ -25,19 +25,6 @@
   </div>
 </div>
 <div class="p-300">
-  <% if(post.userId._id.toString() == currentLoginUserId.toString()) { %>
-    <div class="flex f-end gap-15">
-      <div>
-        <a href="/admin/edit/<%= post._id %>">Edit</a>
-      </div>
-    <div>
-      <form action="/admin/delete-post/<%= post._id %>" method="post">
-        <input hidden value="<%= csrfToken %>" name="_csrf" />
-          <button>Delete</button>
-      </form>
-    </div>
-    </div>
-    <% } %>
 <section class="details">
   <div class="mt-20 flex space-between">
     <h1><%= post.title %></h1>
@@ -52,7 +39,22 @@
       <p class="mt-10"><i class="fa-regular fa-calendar-days"></i> <span class="tmp"><%= date %></span></p>
       <% } %>
     </div>
-    <a class="mt-20 download" href="/save/<%= post._id %>"><i class="fa-solid fa-file-arrow-down"></i></a>
+    <div class="flex">
+    <a class="download mr-10" href="/save/<%= post._id %>"><i class="fa-solid fa-file-arrow-down"></i></a>
+    <% if(post.userId._id.toString() == currentLoginUserId.toString()) { %>
+      <div class="flex f-end gap-15">
+        <div>
+          <a href="/admin/edit/<%= post._id %>">Edit</a>
+        </div>
+      <div>
+        <form action="/admin/delete-post/<%= post._id %>" method="post">
+          <input hidden value="<%= csrfToken %>" name="_csrf" />
+            <button>Delete</button>
+        </form>
+      </div>
+      </div>
+      <% } %>
+    </div>
     </div>
   <div class="flex flex-center">
     <img src="<%= '/' + post.imgUrl %>" alt="<%= post.title %>" class="detail-img mt-20">

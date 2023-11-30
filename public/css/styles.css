@@ -48,14 +48,15 @@ button {
   flex-wrap: wrap;
   margin-top: 20px;
   margin: 0 auto;
-  padding: 0 300px;
-  justify-content: space-between;
+  padding: 0 8%;
+  justify-content: flex-start;
+  gap: 50px;
 }
 .post-box {
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding: 10px 20px;
   border-radius: 10px;
-  width: 350px;
+  width: 300px;
 }
 .post-title {
   font-size: 20px;
@@ -113,6 +114,9 @@ button {
   display: flex;
   align-items: center;
 }
+.mr-10 {
+  margin-right: 10px;
+}
 .space-between {
   justify-content: space-between;
 }
@@ -123,7 +127,7 @@ button {
   gap: 15px;
 }
 .p-300 {
-  padding: 0 50px;
+  padding: 0 8%;
 }
 .ml-auto {
   margin-left: auto;
@@ -207,9 +211,6 @@ a:hover, button:hover {
 .page-number {
   margin-left: 10px;
 }
-.p-300 {
-  padding: 0 300px;
-}
 .pt-40 {
   padding-top: 40px;
 }
@@ -232,4 +233,16 @@ a:hover, button:hover {
 }
 .h-50px {
   height: 120px;
+}
+@media screen and (min-width: 1400px) {
+  .p-300 {
+    padding: 0 15%;
+  }
+  .post-container {
+    padding: 0 15%;
+    gap: 80px;
+  }
+  .post-box {
+    width: 350px;
+  }
 }

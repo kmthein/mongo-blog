@@ -245,4 +245,7 @@ a:hover, button:hover {
   .post-box {
     width: 350px;
   }
+  .pt-40 {
+    padding-top: 40px;
+  }
 }

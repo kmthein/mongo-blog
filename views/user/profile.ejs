@@ -1,0 +1,52 @@
+<%- include("../includes/head") %>
+<div class="flex navbar space-between p-300">
+  <div class="flex">
+    <i class="fa-solid fa-blog text-white f-20"></i>
+    <h1 class="title text-white logo"><a href="/" class="bg-none">My Blogs</a></h1>
+  </div>
+  <div class="flex gap-15">
+    <p class="text-white">Hello, <%= currentUser.email %></p>
+    <div>
+    <a href="/admin/create-post">Add a new post</a>
+  </div>
+  </div>
+</div>
+    <hr />
+    <div class="p-300 mt-20">
+      <a href="/" class="ml-auto">Go Back Home</a>
+    </div>
+    <div class="post-container">
+      <% for(let post of postsArr) { %>
+      <a class="link" href="/post/<%= post._id %>">
+        <div class="post-box">
+          <div>
+            <img
+              src="<%= '/' + post.imgUrl %>"
+              alt="<%= post.title %>"
+              class="home-img"
+            />
+            <div class="h-50px">
+              <p class="post-title mt-20">
+                <%= post.title.substr(0, 40) %><%= post.title.length > 40 ? "..." :
+                "" %>
+              </p>
+              <p class="my-20"><%= post.description.substr(0, 100) %>...</p>
+            </div>
+            <p class="my-20">Posted by @<%= post.userId.username %></p>
+          </div>
+        </div>
+      </a>
+      <% } %>
+    </div>
+    <div class="pagination">
+      <% if(hasPreviousPage) { %>
+      <a href="/admin/profile/user?page=<%= previousPage%>"
+        >Previous Page <span class="page-number"><%= previousPage%></span></a
+      >
+      <% } %> <% if(hasNextPage) { %>
+      <a href="/admin/profile/user?page=<%= nextPage%>"
+        >Next Page <span class="page-number"><%= nextPage%></span></a
+      >
+      <% } %>
+    </div>
+    <%- include("../includes/foot") %>

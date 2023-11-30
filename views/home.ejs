@@ -2,73 +2,86 @@
 <div class="flex navbar space-between p-300">
   <div class="flex">
     <i class="fa-solid fa-blog text-white f-20"></i>
-    <h1 class="title text-white logo"><a href="/" class="bg-none">My Blogs</a></h1>
+    <h1 class="title text-white logo">
+      <a href="/" class="bg-none">My Blogs</a>
+    </h1>
   </div>
-    <% if(isLogin) { %>
+  <% if(isLogin) { %>
   <div class="flex gap-15">
-    <p class="text-white">Hello, <%= currentUser %></p>
+    <p class="text-white">Hello, <%= currentUser.email %></p>
     <div>
-    <a href="/admin/create-post">Add a new post</a>
-  </div>
+      <a href="/admin/create-post">Add a new post</a>
+    </div>
     <div>
-    <form action="/logout" method="post">
-      <input hidden value="<%= csrfToken %>" name="_csrf" />
-      <button>Logout</button>
-    </form>
+      <a href="/admin/profile/<%= currentUser._id %>">Profile</a>
+    </div>
+    <div>
+      <form action="/logout" method="post">
+        <input hidden value="<%= csrfToken %>" name="_csrf" />
+        <button>Logout</button>
+      </form>
     </div>
   </div>
-    <% } else { %>
+  <% } else { %>
   <div class="flex gap-15">
     <a href="/login">Login existing account</a>
     <a href="/register">Create new account</a>
     <% } %>
   </div>
 </div>
-    <hr />
-    <% if(loginSuccessMsg) { %>
-      <div class="success-box-container">
-      <p class="success-box"><%= loginSuccessMsg %></p>
-      </div>
-    <% } %>
-    <% if(postsArr.length === 0 && isLogin) { %>
-    <div class="flex center fullheight">
-      <div>
-        <h1>Nothing to see ?</h1>
-        <a href="/admin/create-post" class="ml-20 mt-20">Create a new post</a>
-      </div>
-    </div>
-    <% } %> 
-    <% if(postsArr.length === 0 && !isLogin) { %>
-    <div>
-      <h4>Login to create new post</h4>
-      <p>There is no recent post here.</p>
-    </div>
-    <% } %>
-    <div class="pt-40 p-300">
-      <h2>Recent posts</h2>
-    </div>
-    <div class="post-container">
-    <% for(let post of postsArr) { %>      
-    <a class="link" href="/post/<%= post._id %>">
+<hr />
+<% if(loginSuccessMsg) { %>
+<div class="success-box-container">
+  <p class="success-box"><%= loginSuccessMsg %></p>
+</div>
+<% } %> <% if(postsArr.length === 0 && isLogin) { %>
+<div class="flex center fullheight">
+  <div>
+    <h1>Nothing to see ?</h1>
+    <a href="/admin/create-post" class="ml-20 mt-20">Create a new post</a>
+  </div>
+</div>
+<% } %> <% if(postsArr.length === 0 && !isLogin) { %>
+<div>
+  <h4>Login to create new post</h4>
+  <p>There is no recent post here.</p>
+</div>
+<% } %>
+<div class="pt-40 p-300">
+  <h2>Recent posts</h2>
+</div>
+<div class="post-container">
+  <% for(let post of postsArr) { %>
+  <a class="link" href="/post/<%= post._id %>">
     <div class="post-box">
       <div>
-      <img src="<%= '/' + post.imgUrl %>" alt="<%= post.title %>" class="home-img">
-      <div class="h-50px">
-        <p class="post-title mt-20"><%= post.title.substr(0, 40) %><%= post.title.length > 40 ? "..." : "" %></p>
-        <p class="my-20"><%= post.description.substr(0, 100) %>...</p>
-      </div>
+        <img
+          src="<%= '/' + post.imgUrl %>"
+          alt="<%= post.title %>"
+          class="home-img"
+        />
+        <div class="h-50px">
+          <p class="post-title mt-20">
+            <%= post.title.substr(0, 40) %><%= post.title.length > 40 ? "..." :
+            "" %>
+          </p>
+          <p class="my-20"><%= post.description.substr(0, 100) %>...</p>
+        </div>
         <p class="my-20">Posted by @<%= post.userId.username %></p>
-      </div>    
+      </div>
     </div>
-    </a>
-    <% } %>
-  </div>
-  <div class="pagination">
-    <% if(hasPreviousPage) { %>
-      <a href="/?page=<%= previousPage%>">Previous Page <span class="page-number"><%= previousPage%></span></a>
-      <% } %>
-    <% if(hasNextPage) { %>
-    <a href="/?page=<%= nextPage%>">Next Page <span class="page-number"><%= nextPage%></span></a>
-    <% } %>
-  </div>
-    <%- include("./includes/foot") %>
+  </a>
+  <% } %>
+</div>
+<div class="pagination">
+  <% if(hasPreviousPage) { %>
+  <a href="/?page=<%= previousPage%>"
+    >Previous Page <span class="page-number"><%= previousPage%></span></a
+  >
+  <% } %> <% if(hasNextPage) { %>
+  <a href="/?page=<%= nextPage%>"
+    >Next Page <span class="page-number"><%= nextPage%></span></a
+  >
+  <% } %>
+</div>
+<%- include("./includes/foot") %>

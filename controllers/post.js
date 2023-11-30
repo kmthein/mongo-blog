@@ -89,7 +89,7 @@ exports.renderHomePage = (req, res, next) => {
           postsArr: posts,
           isLogin: req.session.isLogin ? true : false,
           loginSuccessMsg,
-          currentUser: req.session.userInfo ? req.session.userInfo.email : "",
+          currentUser: req.session.userInfo ? req.session.userInfo : "",
           csrfToken: req.csrfToken(),
           currentPage: pageNumber,
           hasNextPage: POST_PER_PAGE * pageNumber < totalPosts,

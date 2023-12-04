@@ -52,8 +52,11 @@
 </div>
 <div class="post-container">
   <% for(let post of postsArr) { %>
-  <a class="link" href="/post/<%= post._id %>">
     <div class="post-box">
+      <div class="flex">
+        <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile" class="profile-sm">
+        <p class="mb-10"><a href="/profile/<%= post.userId._id %>" class="link"><%= post.userId.username %></a></p>
+      </div>
       <div>
         <img
           src="<%= '/' + post.imgUrl %>"
@@ -61,16 +64,16 @@
           class="home-img"
         />
         <div class="h-50px">
+          <a class="link" href="/post/<%= post._id %>">
           <p class="post-title mt-20">
             <%= post.title.substr(0, 40) %><%= post.title.length > 40 ? "..." :
             "" %>
           </p>
+          </a>
           <p class="my-20"><%= post.description.substr(0, 100) %>...</p>
         </div>
-        <p class="my-20">Posted by @<%= post.userId.username %></p>
       </div>
     </div>
-  </a>
   <% } %>
 </div>
 <div class="pagination">

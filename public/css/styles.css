@@ -234,6 +234,68 @@ a:hover, button:hover {
 .h-50px {
   height: 120px;
 }
+.pb-40 {
+  padding-bottom: 40px;
+}
+.profile-sm {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  margin-right: 5px;
+}
+.profile-lg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+.mb-10 {
+  margin-bottom: 10px;
+}
+.text-center {
+  text-align: center;
+}
+.top {
+  align-items: flex-start;
+}
+.bottom {
+  align-items: flex-end;
+}
+.ml-10 {
+  margin-left: 10px;
+}
+.premium-box {
+  width: 40%;
+  border: 1px solid black;
+  margin: 0 auto;
+  margin-top: 70px;
+  padding: 20px 0;
+  border-radius: 5px;
+}
+.premium-box h2 {
+  text-align: center;
+  margin-top: 20px;
+}
+.premium-box li {
+  list-style: none;
+  padding: 5px 0;
+  display: block;
+  width: 70%;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+.premium-box button {
+  color: #fff;
+  background: rgb(28, 28, 88);
+  padding: 8px 10px;
+  width: 30%;
+  margin: 20px auto;
+  display: block;
+  cursor: pointer;
+  font-size: 16px;
+  border: 0;
+}
+
 @media screen and (min-width: 1400px) {
   .p-300 {
     padding: 0 15%;
@@ -241,6 +303,7 @@ a:hover, button:hover {
   .post-container {
     padding: 0 15%;
     gap: 80px;
+    padding-top: 20px;
   }
   .post-box {
     width: 350px;

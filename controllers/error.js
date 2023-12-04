@@ -3,5 +3,6 @@ exports.get404page = (req, res) => {
 };
 
 exports.get500page = (err, req, res, next) => {
+    console.log(err);
     res.status(500).render("error/500", { title: "Something went wrong.", message: err.msg });
 }

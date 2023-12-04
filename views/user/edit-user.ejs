@@ -1,0 +1,24 @@
+<%- include("../includes/head") %>
+<%- include("../includes/navbar") %>
+<section class="mx-auto pt-40">
+    <a href="/admin/profile/<%= user._id %>" class="ml-auto">Go back</a>
+    <h1 class="title">Edit your profile!</h1>
+    <form action="/admin/edit-profile" method="post">
+      <% if(errorMsg) { %>
+        <p class="message-box"><%= errorMsg %></p>
+      <% } %>
+    <input hidden value="<%= csrfToken %>" name="_csrf" />
+      <div>
+        <label for="username">Enter new username</label>
+        <input type="text" id="username" name="username" value="<%= isUpdateFail ? oldFormData.username : user.username %>" />
+      </div>
+      <div>
+          <label for="email">Enter new email</label>
+          <input type="text" id="email" name="email" value="<%= isUpdateFail ? oldFormData.email : user.email %>" />
+      </div>
+      <button class="mt-20">Update Now</button>
+    </form>
+  </section>
+</body>
+</div>
+<%- include("../includes/foot") %>

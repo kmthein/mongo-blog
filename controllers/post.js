@@ -169,7 +169,6 @@ exports.getPost = (req, res, next) => {
 exports.editPost = (req, res) => {
   const { title, description, photo, postId } = req.body;
   const image = req.file;
-  console.log(image);
   Post.findById(postId)
     .then((post) => {
       if (post.userId.toString() != req.user._id.toString()) {

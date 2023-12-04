@@ -4,6 +4,7 @@ const { body } = require("express-validator");
 const router = express.Router();
 const postController = require("../controllers/post");
 const userController = require("../controllers/user");
+const User = require("../models/user");
 
 // /admin/create-post
 router.get("/create-post", postController.renderCreatePage);
@@ -39,5 +40,20 @@ router.post(
 router.post("/delete-post/:postId", postController.deletePost);
 
 router.get("/profile/:id", userController.getProfile);
+
+router.get("/edit-profile", userController.getEditProfile);
+
+router.post("/edit-profile", [
+  body("username")
+    .isLength({ min: 4 })
+    .withMessage("Username must be at least 4 characters.")
+    .isLength({ max: 10 })
+    .withMessage("Username must not more than 10 characters."),
+    body("email")
+    .isEmail()
+    .withMessage("Plese enter a valid email address.")
+], userController.updateProfile);
+
+router.get("/premium", userController.getPremiumPage);
 
 module.exports = router;

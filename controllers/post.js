@@ -69,7 +69,7 @@ exports.renderHomePage = (req, res, next) => {
       totalPosts = total;
       if (total > 1) {
         return Post.find()
-          .populate("userId", "username")
+          .populate("userId")
           .skip((pageNumber - 1) * POST_PER_PAGE)
           .limit(POST_PER_PAGE)
           .sort({ createdAt: -1 });
@@ -143,7 +143,7 @@ exports.getPost = (req, res, next) => {
     });
   }
   Post.findById(postId)
-    .populate("userId", "email")
+    .populate("userId")
     .then((post) => {
       res.render("details", {
         title: "Post Details",

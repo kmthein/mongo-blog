@@ -34,9 +34,11 @@
   </div>
   <div class="flex space-between">
     <div>
-      <p ><i class="fa-solid fa-user"></i> <span class="tmp"><%= post.userId.email %></span></p>
+      <p class="flex">
+        <img src="<%= post.userId.img ? '/' + post.userId.img : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>" alt="profile" class="profile-sm">
+        <span><%= post.userId.email %></span></p>
       <% if(date) { %>
-      <p class="mt-10"><i class="fa-regular fa-calendar-days"></i> <span class="tmp"><%= date %></span></p>
+      <p class="mt-10 flex ml-10"><i class="fa-regular fa-calendar-days"></i> <span class="ml-10"><%= date %></span></p>
       <% } %>
     </div>
     <div class="flex">

@@ -3,7 +3,7 @@
 <section class="mx-auto pt-40">
     <a href="/admin/profile/<%= user._id %>" class="ml-auto">Go back</a>
     <h1 class="title">Edit your profile!</h1>
-    <form action="/admin/edit-profile" method="post">
+    <form action="/admin/edit-profile" method="post" enctype="multipart/form-data">
       <% if(errorMsg) { %>
         <p class="message-box"><%= errorMsg %></p>
       <% } %>
@@ -15,6 +15,10 @@
       <div>
           <label for="email">Enter new email</label>
           <input type="text" id="email" name="email" value="<%= isUpdateFail ? oldFormData.email : user.email %>" />
+      </div>
+      <div>
+        <label for="photo">Upload profile photo</label>
+        <input type="file" id="photo" name="photo" />
       </div>
       <button class="mt-20">Update Now</button>
     </form>

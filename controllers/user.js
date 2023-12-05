@@ -4,6 +4,10 @@ const User = require("../models/user");
 
 const { validationResult } = require("express-validator");
 
+const fileDelete = require("../utils/file-delete");
+
+const path = require("path");
+
 exports.getProfile = (req, res, next) => {
   const pageNumber = +req.query.page || 1;
   // res.sendFile(path.join(__dirname, "..", "views", "homepage.html"));
@@ -30,10 +34,12 @@ exports.getProfile = (req, res, next) => {
     })
     .then((posts) => {
       if (posts.length > 0) {
+        console.log(req.user);
         return res.render("user/profile", {
           title: req.session.userInfo.username,
           postsArr: posts,
           csrfToken: req.csrfToken(),
+          profileImg: req.user.img ? req.user.img : "",
           currentUser: req.session.userInfo ? req.session.userInfo : "",
           currentPage: pageNumber,
           hasNextPage: POST_PER_PAGE * pageNumber < totalPosts,
@@ -75,6 +81,7 @@ exports.getPublicProfile = (req, res) => {
       if (posts.length > 0) {
         res.render("user/public-profile", {
           title: posts[0].userId.username,
+          profileImg: posts[0].userId.img,
           postsArr: posts,
           csrfToken: req.csrfToken(),
           currentPage: pageNumber,
@@ -115,6 +122,7 @@ exports.getEditProfile = (req, res) => {
 
 exports.updateProfile = (req, res, next) => {
   const { username, email } = req.body;
+  const image = req.file;
   User.findById(req.user._id)
     .then((user) => {
       const errors = validationResult(req);
@@ -130,6 +138,9 @@ exports.updateProfile = (req, res, next) => {
       }
       user.username = username;
       user.email = email;
+      if(image) {
+        user.img = image.path
+      }
       return user.save().then(() => {
         console.log("User updated.");
         res.redirect(`/admin/profile/<%= user._req.user._id %`);

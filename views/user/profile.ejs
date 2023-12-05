@@ -18,7 +18,7 @@
     <div class="p-300 flex space-between">
       <div class="flex top">
       <div class="center flex">
-          <img src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png" alt="profile" class="profile-lg">
+          <img src="<%= profileImg ? '/' + profileImg : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>" alt="profile" class="profile-lg">
       </div>
       <h1 class="ml-10"><%= currentUser.username %></h1>
       </div>

@@ -29,7 +29,9 @@
       </div>
       <div class="flex gap-15">
         <a href="/admin/edit-profile">Edit profile</a>
-        <a href="/admin/premium">Buy Premium</a>
+        <% if(!userInfo.isPremium) { %>
+          <a href="/admin/premium">Buy Premium</a>
+        <% } %>
       </div>
   </div>
   <% if(postsArr.length === 0 && isLogin) { %>

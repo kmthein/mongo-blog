@@ -9,7 +9,17 @@
         <li>Animate profile badge</li>
         <li>Can change profile unlimited</li>
         <li>Upload user profile picture</li>
-        <button>Get Now</button>
+        <button class="checkout-btn">Get Now</button>
+        <script src="https://js.stripe.com/v3/"></script>
+        <script>
+          var stripe = Stripe('pk_test_51OKDbJJTaSaGoUM6iMCWfmYKxeIdNna8KkiSN5Sb7PiUe1Z65O0rt1tuQdTPYjf3bhjUrtq7gO74GOg4Ym8ms1dh00XDd8I8s5');
+          var checkoutBtn = document.querySelector(".checkout-btn");
+          checkoutBtn.addEventListener("click", function() {
+            stripe.redirectToCheckout({
+              sessionId: "<%= session_id %>"
+            })
+          })
+        </script>
       </ul>
     </form>
   </div>

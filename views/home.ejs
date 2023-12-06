@@ -55,7 +55,13 @@
     <div class="post-box">
       <div class="flex">
         <img src="<%= post.userId.img ? '/' + post.userId.img : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>" alt="profile" class="profile-sm">
-        <p class="mb-10"><a href="/profile/<%= post.userId._id %>" class="link"><%= post.userId.username %></a></p>
+        <p class="mb-10">
+          <% if(post.userId._id.toString() == userInfo._id.toString()) { %>
+          <a href="/admin/profile/<%= currentUser._id %>" class="link"><%= post.userId.username %></a>
+          <% } else { %>  
+          <a href="/profile/<%= post.userId._id %>" class="link"><%= post.userId.username %></a>
+          <% } %>
+        </p>
       </div>
       <div>
         <img

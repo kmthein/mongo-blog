@@ -56,4 +56,6 @@ router.post("/edit-profile", [
 
 router.get("/premium", userController.getPremiumPage);
 
+router.get("/subscription-success", userController.getSuccessPage);
+
 module.exports = router;

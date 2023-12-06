@@ -10,27 +10,26 @@ const userSchema = new Schema({
         minLength: 3,
     },
     email: {
-        type: String,
+        type: "String",
         required: true,
         unique: true
     },
     img: {
         type: "String",
-        required: true,
       },
     password: {
-        type: String,
+        type: "String",
         required: true,
         minLength: 4,
     },
     isPremium: {
-        type: Boolean,
+        type: "Boolean",
         default: false
     },
     payment_session_key: {
-        type: String
+        type: "String"
     },
-    resetToken: String,
+    resetToken: "String",
     tokenExpiration: Date
 })
 

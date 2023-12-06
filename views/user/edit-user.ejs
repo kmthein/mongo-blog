@@ -16,10 +16,12 @@
           <label for="email">Enter new email</label>
           <input type="text" id="email" name="email" value="<%= isUpdateFail ? oldFormData.email : user.email %>" />
       </div>
+      <% if(userInfo.isPremium) { %>
       <div>
         <label for="photo">Upload profile photo</label>
         <input type="file" id="photo" name="photo" />
       </div>
+      <% } %>
       <button class="mt-20">Update Now</button>
     </form>
   </section>

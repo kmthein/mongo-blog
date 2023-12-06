@@ -6,6 +6,10 @@ const { validationResult } = require("express-validator");
 
 const fileDelete = require("../utils/file-delete");
 
+const dotenv = require("dotenv").config();
+
+const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+
 const path = require("path");
 const { userInfo } = require("os");
 
@@ -18,10 +22,13 @@ exports.getProfile = (req, res, next) => {
   Post.find({ userId: req.user._id })
     .countDocuments()
     .then((total) => {
+      console.log(total);
       if (total == 0) {
         return res.status(422).render("user/profile", {
           title: req.session.userInfo.username,
           postsArr: [],
+          profileImg: req.user.img ? req.user.img : "",
+          userInfo: req.user ? req.user : "",
           csrfToken: req.csrfToken(),
           currentUser: req.session.userInfo ? req.session.userInfo : "",
         });
@@ -87,6 +94,7 @@ exports.getPublicProfile = (req, res) => {
           profileImg: posts[0].userId.img,
           postsArr: posts,
           csrfToken: req.csrfToken(),
+          userInfo: req.user ? req.user : "",
           currentPage: pageNumber,
           hasNextPage: POST_PER_PAGE * pageNumber < totalPosts,
           hasPreviousPage: pageNumber > 1,
@@ -112,6 +120,7 @@ exports.getEditProfile = (req, res) => {
       res.render("user/edit-user", {
         title: "Edit Profile",
         user,
+        userInfo: req.user ? req.user : "",
         csrfToken: req.csrfToken(),
         errorMsg: "",
         oldFormData: { username: "", email: "", password: "" },
@@ -141,8 +150,8 @@ exports.updateProfile = (req, res, next) => {
       }
       user.username = username;
       user.email = email;
-      if(image) {
-        user.img = image.path
+      if (image) {
+        user.img = image.path;
       }
       return user.save().then(() => {
         console.log("User updated.");
@@ -156,6 +165,51 @@ exports.updateProfile = (req, res, next) => {
 
 exports.getPremiumPage = (req, res, next) => {
   User.findById(req.user._id).then((user) => {
-    return res.render("user/premium", { title: "Premium Page", user });
-  })
+    stripe.checkout.sessions
+      .create({
+        payment_method_types: ["card"],
+        line_items: [
+          {
+            price: "price_1OKDyJJTaSaGoUM605OqQNch",
+            quantity: 1,
+          },
+        ],
+        mode: "subscription",
+        success_url: `${req.protocol}://${req.get(
+          "host"
+        )}/admin/subscription-success?session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${req.protocol}://${req.get(
+          "host"
+        )}/admin/subscription-fail`,
+      })
+      .then((stripe_session) => {
+        return res.render("user/premium", {
+          title: "Premium Page",
+          user,
+          session_id: stripe_session.id,
+        });
+      });
+  });
+};
+
+exports.getSuccessPage = (req, res, next) => {
+  const session_id = req.query.session_id;
+  if (!session_id) {
+    return res.redirect(`/admin/profile/${req.user._id}`);
+  }
+  User.findById(req.user._id)
+    .then((user) => {
+      user.isPremium = true;
+      user.payment_session_key = session_id;
+      return user.save();
+    })
+    .then((result) => {
+      console.log("Premium user subscription completed.");
+      return res.redirect(`/admin/profile/${req.user_id}`);
+    })
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong");
+      return next(error);
+    });
 };

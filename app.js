@@ -61,7 +61,7 @@ app.use((req, res, next) => {
   if(req.session.isLogin === undefined) {
     return next();
   }
-  User.findById(req.session.userInfo._id).select("_id username email img").then((user) => {
+  User.findById(req.session.userInfo._id).then((user) => {
     req.user = user;
     next();
   });

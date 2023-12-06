@@ -20,7 +20,12 @@
       <div class="center flex">
           <img src="<%= profileImg ? '/' + profileImg : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>" alt="profile" class="profile-lg">
       </div>
-      <h1 class="ml-10"><%= currentUser.username %></h1>
+      <div class="flex">
+        <h1 class="ml-10"><%= currentUser.username %></h1>
+        <% if(userInfo.isPremium) { %>
+        <i class="fa-solid fa-star fa-fade fa-lg" style="color: #efd00b; margin-left: 5px;"></i>
+        <% } %>
+      </div>
       </div>
       <div class="flex gap-15">
         <a href="/admin/edit-profile">Edit profile</a>

@@ -7,6 +7,7 @@ const { validationResult } = require("express-validator");
 const fileDelete = require("../utils/file-delete");
 
 const path = require("path");
+const { userInfo } = require("os");
 
 exports.getProfile = (req, res, next) => {
   const pageNumber = +req.query.page || 1;
@@ -40,6 +41,7 @@ exports.getProfile = (req, res, next) => {
           postsArr: posts,
           csrfToken: req.csrfToken(),
           profileImg: req.user.img ? req.user.img : "",
+          userInfo: req.user ? req.user : "",
           currentUser: req.session.userInfo ? req.session.userInfo : "",
           currentPage: pageNumber,
           hasNextPage: POST_PER_PAGE * pageNumber < totalPosts,
@@ -47,6 +49,7 @@ exports.getProfile = (req, res, next) => {
           nextPage: pageNumber + 1,
           previousPage: pageNumber - 1,
         });
+        console.log(userInfo);
       } else {
         res.status(500).render("error/500", {
           title: "Something went wrong.",

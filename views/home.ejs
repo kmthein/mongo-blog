@@ -54,13 +54,18 @@
   <% for(let post of postsArr) { %>
     <div class="post-box">
       <div class="flex">
-        <img src="<%= post.userId.img ? '/' + post.userId.img : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>" alt="profile" class="profile-sm">
-        <p class="mb-10">
-          <% if(post.userId._id.toString() == userInfo._id.toString()) { %>
-          <a href="/admin/profile/<%= currentUser._id %>" class="link"><%= post.userId.username %></a>
+        <% if(userInfo && post.userId._id.toString() == userInfo._id.toString()) { %>
+          <a href="/admin/profile/<%= currentUser._id %>" class="img-link"><img src="<%= post.userId.img ? '/' + post.userId.img : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>" alt="profile" class="profile-sm"></a>
           <% } else { %>  
-          <a href="/profile/<%= post.userId._id %>" class="link"><%= post.userId.username %></a>
+          <a href="/profile/<%= post.userId._id %>" class="img-link"><img src="<%= post.userId.img ? '/' + post.userId.img : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>" alt="profile" class="profile-sm"></a>
           <% } %>
+        <p class="mb-10">
+          <div class="flex center">
+          <p><%= post.userId.username %></p>
+          <% if(post.userId.isPremium) { %>
+            <i class="fa-solid fa-star fa-fade fa-lg" style="color: #efd00b; margin-left: 5px; margin-top: 5px;"></i>
+            <% } %>
+          </div>
         </p>
       </div>
       <div>

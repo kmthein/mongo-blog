@@ -16,7 +16,7 @@
         </div>
         <div class="flex center">
           <h2 class="text-center"><%= postsArr[0].userId.username %></h2>
-          <% if(userInfo.isPremium) { %>
+          <% if(postsArr[0].userId.isPremium) { %>
           <i class="fa-solid fa-star fa-fade fa-lg" style="color: #efd00b; margin-left: 5px;"></i>
           <% } %>
         </div>
@@ -39,7 +39,6 @@
               </p>
               <p class="my-20"><%= post.description.substr(0, 100) %>...</p>
             </div>
-            <p class="my-20">Posted by @<%= post.userId.username %></p>
           </div>
         </div>
       </a>

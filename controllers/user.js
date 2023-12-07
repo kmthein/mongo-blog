@@ -22,7 +22,6 @@ exports.getProfile = (req, res, next) => {
   Post.find({ userId: req.user._id })
     .countDocuments()
     .then((total) => {
-      console.log(total);
       if (total == 0) {
         return res.status(422).render("user/profile", {
           title: req.session.userInfo.username,
@@ -42,7 +41,6 @@ exports.getProfile = (req, res, next) => {
     })
     .then((posts) => {
       if (posts.length > 0) {
-        console.log(req.user);
         return res.render("user/profile", {
           title: req.session.userInfo.username,
           postsArr: posts,
@@ -64,7 +62,6 @@ exports.getProfile = (req, res, next) => {
         });
       }
     })
-
     .catch((err) => {
       console.log(err);
     });
@@ -194,7 +191,7 @@ exports.getPremiumPage = (req, res, next) => {
 
 exports.getSuccessPage = (req, res, next) => {
   const session_id = req.query.session_id;
-  if (!session_id) {
+  if (!session_id || !session_id.includes("cs_test_")) {
     return res.redirect(`/admin/profile/${req.user._id}`);
   }
   User.findById(req.user._id)
@@ -206,6 +203,30 @@ exports.getSuccessPage = (req, res, next) => {
     .then((result) => {
       console.log("Premium user subscription completed.");
       return res.redirect(`/admin/profile/${req.user_id}`);
+    })
+    .catch((err) => {
+      console.log(err);
+      const error = new Error("Something went wrong");
+      return next(error);
+    });
+};
+
+exports.getPremiumDetails = (req, res, next) => {
+  User.findById(req.user._id)
+    .then((user) => {
+      return stripe.checkout.sessions.retrieve(user.payment_session_key);
+    })
+    .then((stripe_session) => {
+      const total = stripe_session.amount_total.toString();
+      res.render("user/premium-details", {
+        title: "Premium Details",
+        user: req.user,
+        customerId: stripe_session.customer,
+        email: stripe_session.customer_details.email,
+        name: stripe_session.customer_details.name,
+        status: stripe_session.payment_status.charAt(0).toUpperCase() + stripe_session.payment_status.slice(1),
+        totalAmount: total.substring(0, total.length - 2),
+      });
     })
     .catch((err) => {
       console.log(err);

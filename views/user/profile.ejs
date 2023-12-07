@@ -32,6 +32,9 @@
         <% if(!userInfo.isPremium) { %>
           <a href="/admin/premium">Buy Premium</a>
         <% } %>
+        <% if(userInfo.isPremium) { %>
+          <a href="/admin/premium-details">Premium Details</a>
+        <% } %>
       </div>
   </div>
   <% if(postsArr.length === 0 && isLogin) { %>

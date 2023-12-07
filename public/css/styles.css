@@ -139,7 +139,7 @@ button {
   width: 100%;
   height: 250px;
   margin-top: 10px;
-  object-fit: cover;
+  object-fit: contain;
 }
 .text-white {
   color: white;
@@ -308,6 +308,43 @@ a:hover, button:hover {
   background: none;
   transform: translateY(-5px);
   transition: 0.2s;
+}
+.premium-details {
+  width: 80%;
+  margin: 0 auto;
+  padding: 20px 0;
+  border-radius: 5px;
+  margin-left: 20%;
+}
+.premium-details h2 {
+  text-align: center;
+}
+.premium-details p {
+  margin-top: 20px;
+  margin-left: 20%;
+}
+.premium-details .status {
+  background: rgb(29, 211, 29);
+  border-radius: 5px;
+  padding: 2px 5px;
+}
+.object-fit {
+  object-fit: cover;
+  object-position: center;
+}
+table, th, td {
+  border: 1px solid black;
+  border-collapse: collapse;
+}
+th, td {
+  padding: 10px;
+}
+th {
+  text-align: center;
+}
+th {
+  background-color: #292929;
+  color: white;
 }
 
 @media screen and (min-width: 1400px) {

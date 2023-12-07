@@ -1,0 +1,35 @@
+<%- include("../includes/head") %> <%- include("../includes/navbar") %>
+<section class="mx-auto pt-40">
+  <a href="/admin/profile/<%= user._id %>" class="ml-auto">Go back</a>
+    <div class="premium-details">
+        <table width=""100%>
+                <tr>
+                    <th colspan="2">Premium User Status</th>
+                </tr>
+            </the>
+            <tbody>
+                <tr>
+                    <td>Customer ID</td>
+                    <td><%= customerId %></td>
+                </tr>
+                <tr>
+                    <td>Customer Email</td>
+                    <td><%= email %></td>
+                </tr>
+                <tr>
+                    <td>Customer Name</td>
+                    <td><%= name %></td>
+                </tr>
+                <tr>
+                    <td>Total Amount</td>
+                    <td><%= totalAmount %></td>
+                </tr>
+                <tr>
+                    <td>Payment Status</td>
+                    <td><span class="status"><%= status %></span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+<%- include("../includes/foot") %>

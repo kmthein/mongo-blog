@@ -58,4 +58,8 @@ router.get("/premium", userController.getPremiumPage);
 
 router.get("/subscription-success", userController.getSuccessPage);
 
+router.get("/premium-details", userController.getPremiumDetails);
+
+router.get("/subscription-fail", userController.getPremiumPage);
+
 module.exports = router;

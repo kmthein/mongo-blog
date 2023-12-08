@@ -1,7 +1,7 @@
 <%- include("../includes/head") %>
 <%- include("../includes/navbar") %>
 <section class="mx-auto pt-40">
-    <a href="/admin/profile/<%= user._id %>" class="ml-auto">Go back</a>
+    <a href="/admin/profile/<%= user._id %>" class="ml-auto"><i class="fa-solid fa-chevron-left"></i></a>
     <h1 class="title">Edit your profile!</h1>
     <form action="/admin/edit-profile" method="post" enctype="multipart/form-data">
       <% if(errorMsg) { %>

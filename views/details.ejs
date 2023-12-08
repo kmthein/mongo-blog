@@ -34,7 +34,7 @@
   </div>
   <div class="flex space-between">
     <div>
-      <div class="flex center">
+      <div class="flex">
         <img src="<%= post.userId.img ? '/' + post.userId.img : 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png' %>" alt="profile" class="profile-sm">
         <div class="flex">
         <span><%= post.userId.username %></span></p>
@@ -44,7 +44,7 @@
         </div>
       </div>
       <% if(date) { %>
-      <p class="mt-10 flex ml-10"><i class="fa-regular fa-calendar-days"></i> <span class="ml-10"><%= date %></span></p>
+      <p class="mt-10 flex ml-10"><i class="fa-regular fa-calendar-days" style="font-size: 20px;"></i> <span style="margin-left: 15px;"><%= date %></span></p>
       <% } %>
     </div>
     <div class="flex">
